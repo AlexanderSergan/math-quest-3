@@ -6,7 +6,6 @@ import { ChildLoginInfo } from "@/components/child-login-info"
 import { ParentProgressDashboard } from "@/components/parent-progress-dashboard"
 import { ChildSelector } from "@/components/child-selector"
 import { RewardSettings } from "@/components/reward-settings"
-import { ParentDashboardDemoModal } from "@/components/parent-dashboard-demo-modal"
 
 export default function ParentDashboard() {
   const [activeSubject, setActiveSubject] = useState("mathematics")
@@ -180,7 +179,6 @@ export default function ParentDashboard() {
 
   const [selectedChild, setSelectedChild] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState("progress")
-  const [showDemoModal, setShowDemoModal] = useState(false)
 
   // Use useEffect to safely access localStorage only on the client side
   useEffect(() => {
@@ -188,13 +186,6 @@ export default function ParentDashboard() {
     const storedChild = localStorage.getItem("selectedChild")
     if (storedChild) {
       setSelectedChild(storedChild)
-    }
-
-    // Check if this is the first visit to show the demo modal
-    const hasSeenDemo = localStorage.getItem("hasSeenParentDashboardDemo")
-    if (!hasSeenDemo) {
-      setShowDemoModal(true)
-      localStorage.setItem("hasSeenParentDashboardDemo", "true")
     }
   }, [])
 
@@ -208,6 +199,8 @@ export default function ParentDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6" data-testid="parent-dashboard-heading">Parent Dashboard</h1>
+
       <h1 className="text-3xl font-bold mb-6">Parent Dashboard</h1>
 
       <div className="mb-8">
@@ -259,8 +252,6 @@ export default function ParentDashboard() {
           <p className="text-lg text-gray-600">Please select a child to view their dashboard.</p>
         </div>
       )}
-
-      {showDemoModal && <ParentDashboardDemoModal onClose={() => setShowDemoModal(false)} />}
     </div>
   )
 }

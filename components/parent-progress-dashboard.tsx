@@ -16,11 +16,19 @@ interface ParentProgressDashboardProps {
   childName: string
   subjects: {
     [key: string]: SubjectData
-  }
-  overallProgress: number
+  } | undefined | null // Allow subjects to be undefined/null initially
+  overallProgress: number | undefined | null // Allow overallProgress to be undefined/null initially
 }
 
 export function ParentProgressDashboard({ childName, subjects, overallProgress }: ParentProgressDashboardProps) {
+  // Add guard clause here
+  if (!subjects || overallProgress === undefined || overallProgress === null) {
+    // Render loading state or nothing until data is available
+    // For now, just return null to prevent the error
+    // TODO: Implement proper loading state
+    return null; 
+  }
+  
   // Weekly activity data
   const weeklyActivity = [
     { day: "Mon", minutes: 25 },
