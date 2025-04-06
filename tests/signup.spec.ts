@@ -24,7 +24,7 @@ const test = base.extend<{
 });
 
 // Describe block to potentially run tests serially if dependent
-test.describe('Signup and Login Flow', () => {
+test.describe('[MOCKED] Signup and Login Flow', () => {
   // Optional: Uncomment if signup MUST complete before login test runs
   // test.describe.configure({ mode: 'serial' });
 
@@ -68,7 +68,7 @@ test.describe('Signup and Login Flow', () => {
     await expect(page.getByTestId('parent-dashboard-heading')).toBeVisible();
   });
 
-  test("child login flow", async ({ page, userData }) => {
+  test("[MOCKED] child login flow", async ({ page, userData }) => {
     // Navigate to child login page (Update URL if necessary)
     await page.goto("http://localhost:3000/login");
 
